@@ -1,6 +1,6 @@
 # API de Lista de Tareas
 
-API RESTful construida con Node.js, Express y MongoDB para gestionar tareas (To-Do List).
+API RESTful construida con Node.js, Express y mysql para gestionar tareas (To-Do List).
 
 ---
 
@@ -18,7 +18,7 @@ API RESTful construida con Node.js, Express y MongoDB para gestionar tareas (To-
 ## Requisitos
 
 - Node.js (v18+)
-- MongoDB (instalado localmente o Atlas)
+- mysql
 - Git
 
 ---
@@ -29,6 +29,7 @@ API RESTful construida con Node.js, Express y MongoDB para gestionar tareas (To-
 git clone https://github.com/gitwithandres/NodeJS_Prueba.git
 cd NodeJS_Prueba
 npm install
-npm
+npm install mysql2
+npm install sequelize mysql2
 npm start
 ```

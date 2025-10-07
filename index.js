@@ -1,40 +1,38 @@
-require("dotenv").config();
+import express from "express";
+import dotenv from "dotenv";
+import db from "./config/db.js";  
+import taskRoutes from "./routes/tasks.js";
+import errorHandler from "./middlewares/errorHandler.js";
 
-const express = require("express");
-const mongoose = require("mongoose");
+dotenv.config({ path: '.env' });
 
+
+
+// Crear app
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const errorHandler = require("./middlewares/errorHandler");
-
 app.use(express.json());
 
-const taskRoutes = require("./routes/tasks");
+// Aqui van las rutas donde creamos las tablas
 app.use("/tasks", taskRoutes);
 
-// Conexión a MongoDB
-mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("Conectado a MongoDB");
-  })
-  .catch((error) => {
-    console.error("Error conectando a MongoDB:", error);
-  });
+// 🔹 Conexión a MySQL
+try {
+  await db.authenticate();
+  console.log("Conexión a MySQL exitosa");
+  
+  // Si quieres crear tablas automáticamente:
+  await db.sync(); 
+  console.log("Tablas sincronizadas");
+  
+} catch (error) {
+  console.error("Error conectando a MySQL:", error);
+}
 
-// Ruta base de prueba
+// Ruta base
 app.get("/", (req, res) => {
-  res.send("API funcionando");
-});
-
-//probando error
-app.get("/error", (req, res, next) => {
-  const error = new Error("Esto es un error de prueba");
-  next(error);
+  res.send("API funcionando con MySQL");
 });
 
 app.use(errorHandler);

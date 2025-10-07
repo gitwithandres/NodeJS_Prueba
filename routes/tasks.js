@@ -1,20 +1,13 @@
-const express = require("express");
+import express from "express";
+import user from "../models/user/user.js";
+import congregacion from "../models/congregacion/congregacion.js";
+
 const router = express.Router();
 
-const {
-  createTask,
-  getTasks,
-  getTaskById,
-  updateTask,
-  deleteTask,
-} = require("../controllers/taskController");
+router.get("/", async (req, res) => {
+    const users = await user.findAll();
+    const congregaciones = await congregacion.findAll();
+    res.json({ users, congregaciones });
+});
 
-const validateObjectId = require("../middlewares/validateObjectId");
-
-router.post("/", createTask);
-router.get("/", getTasks);
-router.get("/:id", validateObjectId, getTaskById);
-router.put("/:id", validateObjectId, updateTask);
-router.delete("/:id", validateObjectId, deleteTask);
-
-module.exports = router;
+export default router;
