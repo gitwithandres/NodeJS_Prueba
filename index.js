@@ -1,12 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
-import db from "./config/db.js";  
+import db from "./config/db.js";
 import taskRoutes from "./routes/tasks.js";
 import errorHandler from "./middlewares/errorHandler.js";
 
-dotenv.config({ path: '.env' });
-
-
+dotenv.config({ path: ".env" });
 
 // Crear app
 const app = express();
@@ -21,11 +19,10 @@ app.use("/tasks", taskRoutes);
 try {
   await db.authenticate();
   console.log("Conexión a MySQL exitosa");
-  
+
   // Si quieres crear tablas automáticamente:
-  await db.sync(); 
+  await db.sync();
   console.log("Tablas sincronizadas");
-  
 } catch (error) {
   console.error("Error conectando a MySQL:", error);
 }
