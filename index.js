@@ -4,6 +4,9 @@ import db from "./config/db.js";
 import taskRoutes from "./routes/tasks.js";
 import errorHandler from "./middlewares/errorHandler.js";
 
+//Importacion de routes de rol
+import rolRoutes from "./routes/rolRoutes.js";
+
 dotenv.config({ path: ".env" });
 
 // Crear app
@@ -14,6 +17,7 @@ app.use(express.json());
 
 // Aqui van las rutas donde creamos las tablas
 app.use("/tasks", taskRoutes);
+app.use("/rol", rolRoutes);
 
 // 🔹 Conexión a MySQL
 try {

@@ -31,5 +31,6 @@ cd NodeJS_Prueba
 npm install
 npm install mysql2
 npm install sequelize mysql2
+npm install express-validator
 npm start
 ```
