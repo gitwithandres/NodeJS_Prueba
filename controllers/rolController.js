@@ -1,8 +1,17 @@
 import rol from "../models/rol/rol.js";
 
-const getRols = async (req, res) => {
-
-}
+const getRoles = async (req, res) => {
+  try {
+    const data = await rol.findAll();
+    res.status(201).json({
+      message: "Todos los roles han sido listados",
+      roles: data,
+    });
+  } catch (error) {
+    console.error("Error al traer los roles", error);
+    res.status(500).json({ error: "Error al traer los roles" });
+  }
+};
 
 const createRol = async (req, res) => {
   try {
@@ -11,7 +20,7 @@ const createRol = async (req, res) => {
 
     res.status(201).json({
       message: "Rol creado con éxito",
-      rol: data
+      rol: data,
     });
   } catch (error) {
     console.error("Error al crear el rol:", error);
@@ -19,7 +28,4 @@ const createRol = async (req, res) => {
   }
 };
 
-export { 
-    createRol,
-    getRols
-};
+export { createRol, getRoles };
